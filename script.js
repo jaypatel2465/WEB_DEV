@@ -1,203 +1,99 @@
-// Main script for JobConnect
+// Wait for the HTML document to be fully loaded before running the script
 document.addEventListener("DOMContentLoaded", () => {
-  handleSignupForm();
-  handleLoginForm();
-  handleApplyForm();
-  handleAdminForm();
-});
-
-// --- Form Handlers ---
-
-function handleSignupForm() {
+  
+  // --- Signup Form Validation ---
   const signupForm = document.getElementById("signupForm");
   if (signupForm) {
     signupForm.addEventListener("submit", e => {
       e.preventDefault();
-      validateSignup();
+      // Placeholder for signup validation logic
+      const password = document.getElementById("password").value;
+      const confirmPassword = document.getElementById("confirmPassword").value;
+      const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+      
+      const passwordError = document.getElementById("passwordError");
+      const confirmError = document.getElementById("confirmError");
+
+      if (passwordError) {
+        passwordError.innerText = passwordRegex.test(password) ? "" : "Password is not strong enough.";
+      }
+      if (confirmError) {
+        confirmError.innerText = password === confirmPassword ? "" : "Passwords do not match";
+      }
     });
   }
-}
 
-function handleLoginForm() {
+  // --- Login Form Validation ---
   const loginForm = document.getElementById("loginForm");
   if (loginForm) {
     loginForm.addEventListener("submit", e => {
       e.preventDefault();
-      validateLogin();
+      // Placeholder for login validation logic
+      console.log("Login form submitted");
     });
   }
-}
 
-function handleApplyForm() {
-    const applyForm = document.getElementById("applyForm");
-    if (applyForm) {
-        applyForm.addEventListener("submit", e => {
-            e.preventDefault();
-            if (validateApplyForm()) {
-                alert("Application submitted successfully!");
-                applyForm.reset();
-            }
-        });
-    }
-}
-
-
-function handleAdminForm() {
-    const postJobForm = document.getElementById("postJobForm");
-    if (postJobForm) {
-        postJobForm.addEventListener("submit", e => {
-            e.preventDefault();
-            if (validateAdminForm()) {
-                addJobToDashboard();
-                postJobForm.reset();
-            }
-        });
-    }
-}
-
-
-// --- Validation Functions ---
-
-function validateSignup() {
-  let isValid = true;
-  // Name validation
-  const name = document.getElementById("fullName");
-  isValid = validateField(name, "nameError", "Name is required.") && isValid;
-  
-  // Email validation
-  const email = document.getElementById("email");
-  isValid = validateEmail(email, "emailError") && isValid;
-
-  // Password validation
-  const password = document.getElementById("password");
-  const confirmPassword = document.getElementById("confirmPassword");
-  isValid = validatePassword(password, confirmPassword, "passwordError", "confirmError") && isValid;
-  
-  if (isValid) {
-    alert("Signup successful!");
-    document.getElementById("signupForm").reset();
+  // --- Application Form Validation ---
+  const applyForm = document.getElementById("applyForm");
+  if (applyForm) {
+    applyForm.addEventListener("submit", e => {
+      e.preventDefault();
+      // Placeholder for application form validation logic
+      console.log("Application form submitted");
+    });
   }
-  return isValid;
-}
 
-function validateLogin() {
-  let isValid = true;
-  const email = document.getElementById("loginEmail");
-  isValid = validateEmail(email, "loginEmailError") && isValid;
+  // --- Admin Page Functionality ---
+  const postJobBtn = document.getElementById('post-job-btn');
+  const manageJobBtn = document.getElementById('manage-job-btn');
+  const postJobContent = document.getElementById('post-job-content');
+  const manageJobContent = document.getElementById('manage-job-content');
 
-  const password = document.getElementById("loginPassword");
-  isValid = validateField(password, "loginPasswordError", "Password is required.") && isValid;
-  
-  if (isValid) {
-    alert("Login successful!");
-    document.getElementById("loginForm").reset();
-  }
-  return isValid;
-}
-
-
-function validateApplyForm() {
-    let isValid = true;
-    isValid = validateField(document.getElementById("applyName"), "applyNameError", "Full name is required.") && isValid;
-    isValid = validateEmail(document.getElementById("applyEmail"), "applyEmailError") && isValid;
-    isValid = validatePhone(document.getElementById("applyPhone"), "applyPhoneError") && isValid;
-    isValid = validateField(document.getElementById("applyResume"), "applyResumeError", "Resume is required.") && isValid;
-    isValid = validateField(document.getElementById("applyCover"), "applyCoverError", "Cover letter is required.") && isValid;
-    return isValid;
-}
-
-
-function validateAdminForm() {
-    let isValid = true;
-    isValid = validateField(document.getElementById("jobTitle"), "", "Job title is required.") && isValid;
-    isValid = validateField(document.getElementById("companyName"), "", "Company name is required.") && isValid;
-    isValid = validateField(document.getElementById("jobLocation"), "", "Location is required.") && isValid;
-    isValid = validateField(document.getElementById("jobDescription"), "", "Description is required.") && isValid;
-    return isValid;
-}
-
-
-// --- Validation Helpers ---
-
-function validateField(field, errorId, message) {
-    const errorEl = document.getElementById(errorId);
-    if (field.value.trim() === "") {
-        if (errorEl) errorEl.textContent = message;
-        return false;
-    }
-    if (errorEl) errorEl.textContent = "";
-    return true;
-}
-
-function validateEmail(emailField, errorId) {
-    const emailRegex = /^[^@]+@[^@]+\.[^@]+$/;
-    const errorEl = document.getElementById(errorId);
-    if (!emailRegex.test(emailField.value)) {
-        errorEl.textContent = "Please enter a valid email address.";
-        return false;
-    }
-    errorEl.textContent = "";
-    return true;
-}
-
-function validatePassword(passwordField, confirmField, passwordErrorId, confirmErrorId) {
-    const passErr = document.getElementById(passwordErrorId);
-    const confErr = document.getElementById(confirmErrorId);
-    let isValid = true;
-
-    // Regex requires at least 8 characters, one uppercase, one lowercase, one number, and one special character
-    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&]).{8,}$/;
-
-    if (!passwordRegex.test(passwordField.value)) {
-        passErr.textContent = "Password must be 8+ chars and include uppercase, lowercase, number, & special char (@$!%*?&).";
-        isValid = false;
-    } else {
-        passErr.textContent = "";
-    }
-
-    if (passwordField.value !== confirmField.value) {
-        confErr.textContent = "Passwords do not match.";
-        isValid = false;
-    } else {
-        confErr.textContent = "";
-    }
-    return isValid;
-}
-
-function validatePhone(phoneField, errorId) {
-    const phoneRegex = /^\d{10}$/; // Simple 10-digit phone number
-    const errorEl = document.getElementById(errorId);
-    if (!phoneRegex.test(phoneField.value.trim())) {
-        errorEl.textContent = "Please enter a valid 10-digit phone number.";
-        return false;
-    }
-    errorEl.textContent = "";
-    return true;
-}
-
-// --- Admin Dashboard Functionality ---
-
-function addJobToDashboard() {
-    const title = document.getElementById("jobTitle").value;
-    const company = document.getElementById("companyName").value;
-    const location = document.getElementById("jobLocation").value;
-
-    const list = document.getElementById("postedJobsList");
-
-    const jobDiv = document.createElement("div");
-    jobDiv.className = "posted-job";
-
-    const jobTitleEl = document.createElement("h3");
-    jobTitleEl.textContent = title;
-
-    const jobDetailsEl = document.createElement("p");
-    jobDetailsEl.textContent = `${company} - ${location}`;
-
-    jobDiv.appendChild(jobTitleEl);
-    jobDiv.appendChild(jobDetailsEl);
+  // Only run the admin script if the necessary elements are on the page
+  if (postJobBtn && manageJobBtn && postJobContent && manageJobContent) {
     
-    list.appendChild(jobDiv);
+    // Function to switch between tabs
+    function switchTab(activeBtn, inactiveBtn, activeContent, inactiveContent) {
+        activeContent.classList.add('active');
+        inactiveContent.classList.remove('active');
+        activeBtn.classList.add('active');
+        inactiveBtn.classList.remove('active');
+    }
 
-    alert("Job posted successfully!");
-}
+    // Event listener for the "Post a New Job" button
+    postJobBtn.addEventListener('click', () => {
+      switchTab(postJobBtn, manageJobBtn, postJobContent, manageJobContent);
+    });
+
+    // Event listener for the "Manage Job Posts" button
+    manageJobBtn.addEventListener('click', () => {
+      switchTab(manageJobBtn, postJobBtn, manageJobContent, postJobContent);
+    });
+
+    // Use event delegation to handle clicks on Accept/Reject buttons
+    manageJobContent.addEventListener('click', (e) => {
+      const target = e.target;
+      
+      // Check if a button inside the actions container was clicked
+      if (target.tagName === 'BUTTON' && target.closest('.applicant-actions')) {
+        const applicantDiv = target.closest('.applicant');
+        const actionsDiv = target.closest('.applicant-actions');
+        
+        // Remove any existing status classes
+        applicantDiv.classList.remove('accepted', 'rejected');
+
+        // Handle "Accept" button click
+        if (target.classList.contains('btn-accept')) {
+            applicantDiv.classList.add('accepted');
+            actionsDiv.innerHTML = `<strong>Accepted</strong>`;
+        } 
+        // Handle "Reject" button click
+        else if (target.classList.contains('btn-reject')) {
+            applicantDiv.classList.add('rejected');
+            actionsDiv.innerHTML = `<strong>Rejected</strong>`;
+        }
+      }
+    });
+  }
+});
 
