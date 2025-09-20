@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard - JobConnect</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <nav class="navbar">
+    <div class="nav-container">
+      <div class="nav-logo">
+        <a href="index.html">JobConnect</a>
+      </div>
+      <div class="nav-menu">
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="jobs.html">Jobs</a></li>
+          <li><a href="admin.html">Admin</a></li>
+          <li><a href="login.html">Login</a></li>
+          <li><a href="signup.html">Signup</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <main class="content-container">
+    <div class="card admin-card">
+        <section class="admin-section">
+            <h2>Post a New Vacancy</h2>
+            <form id="postJobForm">
+                <label>Job Title: 
+                    <input type="text" id="jobTitle" required>
+                </label>
+                <label>Company Name: 
+                    <input type="text" id="companyName" required>
+                </label>
+                <label>Location: 
+                    <input type="text" id="jobLocation" required>
+                </label>
+                <label>Job Description: 
+                    <textarea id="jobDescription" rows="4" required></textarea>
+                </label>
+                <button type="submit">Post Job</button>
+            </form>
+        </section>
+        <section class="admin-section">
+            <h2>Manage Posted Jobs</h2>
+            <div id="postedJobsList">
+                <div class="posted-job">
+                  <h3>Software Engineer</h3>
+                  <p>Innovate Inc. - New York, NY</p>
+                </div>
+            </div>
+        </section>
+    </div>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 JobConnect. All rights reserved.</p>
+  </footer>
+
+  <script src="script.js" defer></script>
+</body>
+</html>
