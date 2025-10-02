@@ -42,7 +42,16 @@
         }
         ?>
         </span><p>Jobs Available</p></div>
-        <div><span id="companiesCount">45</span><p>Companies Hiring</p></div>
+        <div><span id="companiesCount">
+        <?php
+        $sql = "select count(*) as co from companies";
+        $res = $conn->query($sql);
+        if($res){
+          $row = $res->fetch_assoc();
+          echo $row["co"];
+        }
+        ?>
+        </span><p>Companies Hiring</p></div>
         <div><span id="usersCount">
         <?php
         $sql = "select count(*) as co from users";

@@ -29,17 +29,21 @@
         <div class="card-header">
             <h1>Create Your Account</h1>
         </div>
-        <form id="signupForm">
+        <form id="signupForm" action="signup.php" method="post">
             <label>Full Name: 
-                <input type="text" id="fullName" required>
+                <input type="text" id="fullName" name="full_name" required>
                 <span class="error" id="nameError"></span>
             </label>
             <label>Email: 
-                <input type="email" id="email" required>
+                <input type="email" id="email" name="email" required>
                 <span class="error" id="emailError"></span>
             </label>
+            <label>Phone Number: 
+                <input type="number" id="phone" name="phone" required>
+                <span class="error" id="phonrError"></span>
+            </label>
             <label>Password: 
-                <input type="password" id="password" required>
+                <input type="password" id="password" name="password" required>
                 <span class="error" id="passwordError"></span>
             </label>
             <label>Confirm Password: 
@@ -58,6 +62,6 @@
     <p>&copy; 2025 JobConnect. All rights reserved.</p>
   </footer>
 
-  <script src="script.js" defer></script>
+  <!-- <script src="script.js" defer></script> -->
 </body>
 </html>

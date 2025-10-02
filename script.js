@@ -1,12 +1,11 @@
-// Wait for the HTML document to be fully loaded before running the script
 document.addEventListener("DOMContentLoaded", () => {
   
-  // --- Signup Form Validation ---
+
   const signupForm = document.getElementById("signupForm");
   if (signupForm) {
     signupForm.addEventListener("submit", e => {
       e.preventDefault();
-      // Placeholder for signup validation logic
+
       const password = document.getElementById("password").value;
       const confirmPassword = document.getElementById("confirmPassword").value;
       const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;

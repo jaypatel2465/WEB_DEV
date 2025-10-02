@@ -225,23 +225,6 @@ p.form-footer a:hover {
     text-decoration: underline;
 }
 
-/* Buttons */
-button {
-    padding: 0.75rem 1.5rem;
-    border: none;
-    background-color: #3b82f6;
-    color: white;
-    cursor: pointer;
-    border-radius: 0.5rem;
-    font-size: 1rem;
-    font-weight: 500;
-    transition: background-color 0.3s ease;
-}
-
-button:hover {
-    background-color: #2563eb;
-}
-
 /* Jobs Page */
 .jobs-list {
     display: grid;
@@ -313,12 +296,26 @@ button:hover {
     margin-left: 0.5rem;
 }
 
-
-/* Footer */
 footer {
     background: #1e293b;
     color: #e2e8f0;
     padding: 1.5rem;
     text-align: center;
     margin-top: auto;
+}
+
+button {
+    padding: 0.75rem 1.5rem;
+    border: none;
+    background-color: #3b82f6;
+    color: white;
+    cursor: pointer;
+    border-radius: 0.5rem;
+    font-size: 1rem;
+    font-weight: 500;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #2563eb;
 }
