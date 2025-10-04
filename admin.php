@@ -292,7 +292,7 @@
             foreach ($jobs_with_applicants as $job) {
                 ?>
                 <div class="posted-job">
-                    <h3><?php echo htmlspecialchars($job['job_title']); ?></h3>
+                    <h3><?= $job['job_title'] ?></h3>
                     <div class="applicant-list">
                         <?php foreach ($job['applicants'] as $applicant) { ?>
                             <div class="applicant">
@@ -306,8 +306,8 @@
                                     <?php } ?>
                                 </div>
                                 <div class="applicant-actions">
-                                    <button class="btn-accept" type="submit">Accept</button>
-                                    <button class="btn-reject" type="submit">Reject</button>
+                                    <a href="status.php?app=<?= $applicant['application_id'] ?>&sta=a" ><button class="btn-accept">Accept</button></a>
+                                    <a href="status.php?app=<?= $applicant['application_id'] ?>&sta=r" ><button class="btn-reject">Reject</button></a>
                                 </div>
                             </div>
                         <?php } ?>

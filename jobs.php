@@ -201,6 +201,7 @@
                     <p><strong>Salary:</strong> <?php echo ($job['salary_range']); ?></p>
                 </div>
                 <?php 
+                if(isset($_SESSION['user'])){
                   $sql = "select * from applications where job_id=".$job['job_id']." and user_id=".$_SESSION['user_id'];
                   $res = $conn->query($sql);
 
@@ -219,7 +220,7 @@
                   <a href="apply.php?job_id=<?=$job['job_id'] ?>&role=<?=$job['job_title'] ?>"><button>Apply Now</button></a>
                 <?php  
                 }
-                
+              }
                 ?>
             </div>
             <?php
