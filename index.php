@@ -22,8 +22,8 @@
           <li><a href="index.php">Home</a></li>
           <li><a href="jobs.php">Jobs</a></li>
           <li><a href="admin.php">Admin</a></li>
-          <li><a href="login.html">Login</a></li>
           <li><a href="signup.html">Signup</a></li>
+          <li><a href="logout.php">Logout</a></li>
         </ul>
       </div>
     </div>
