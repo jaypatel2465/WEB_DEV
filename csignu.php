@@ -3,44 +3,39 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Signup - JobConnect</title>
+  <title>Company Signup - JobConnect</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <nav class="navbar">
     <div class="nav-container">
       <div class="nav-logo">
-        <a href="index.html">JobConnect</a>
+        <a href="index.php">JobConnect</a>
       </div>
       <div class="nav-menu">
-        <ul>
+      <ul>
           <li><a href="index.php">Home</a></li>
           <li><a href="jobs.php">Jobs</a></li>
           <li><a href="admin.php">Admin</a></li>
-          <li><a href="login.html">Login</a></li>
-          <li><a href="signup.html">Signup</a></li>
+          <li><a href="signu.php">Signup</a></li>
+          <li><a href="logout.php">Logout</a></li>
         </ul>
       </div>
     </div>
   </nav>
-
   <main class="form-container">
     <div class="card">
         <div class="card-header">
-            <h1>Create Your Account</h1>
+            <h1>Create Your Business Account</h1>
         </div>
-        <form id="signupForm" action="signup.php" method="post">
-            <label>Full Name: 
-                <input type="text" id="fullName" name="full_name" required>
+        <form id="signupForm" action="csignup.php" method="post">
+            <label>Company Name: 
+                <input type="text" id="fullName" name="name" required>
                 <span class="error" id="nameError"></span>
             </label>
             <label>Email: 
                 <input type="email" id="email" name="email" required>
                 <span class="error" id="emailError"></span>
-            </label>
-            <label>Phone Number: 
-                <input type="number" id="phone" name="phone" required>
-                <span class="error" id="phonrError"></span>
             </label>
             <label>Password: 
                 <input type="password" id="password" name="password" required>
@@ -53,7 +48,7 @@
             <button type="submit">Register</button>
         </form>
         <p class="form-footer">
-            Already have an account? <a href="login.html">Login</a>
+            Already have an account? <a href="clogi.php">Login</a>
         </p>
     </div>
   </main>

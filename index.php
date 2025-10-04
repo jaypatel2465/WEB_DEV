@@ -15,14 +15,14 @@
   <nav class="navbar">
     <div class="nav-container">
       <div class="nav-logo">
-        <a href="index.html">JobConnect</a>
+        <a href="index.php">JobConnect</a>
       </div>
       <div class="nav-menu">
         <ul>
           <li><a href="index.php">Home</a></li>
           <li><a href="jobs.php">Jobs</a></li>
           <li><a href="admin.php">Admin</a></li>
-          <li><a href="signup.html">Signup</a></li>
+          <li><a href="signu.php">Signup</a></li>
           <li><a href="logout.php">Logout</a></li>
         </ul>
       </div>

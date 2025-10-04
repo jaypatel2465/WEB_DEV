@@ -3,14 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Company Signup - JobConnect</title>
+  <title>Login - JobConnect</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <nav class="navbar">
     <div class="nav-container">
       <div class="nav-logo">
-        <a href="index.html">JobConnect</a>
+        <a href="index.php">JobConnect</a>
       </div>
       <div class="nav-menu">
         <ul>
@@ -23,36 +23,29 @@
       </div>
     </div>
   </nav>
+
   <main class="form-container">
     <div class="card">
         <div class="card-header">
-            <h1>Create Your Business Account</h1>
+            <h1>Welcome Back Recruiter!</h1>
         </div>
-        <form id="signupForm" action="csignup.php" method="post">
-            <label>Company Name: 
-                <input type="text" id="fullName" name="name" required>
-                <span class="error" id="nameError"></span>
-            </label>
+        <form id="loginForm" action="clogin.php" method="post">
             <label>Email: 
-                <input type="email" id="email" name="email" required>
-                <span class="error" id="emailError"></span>
+                <input type="email" name="email" id="loginEmail" required>
+                <span class="error" id="loginEmailError"></span>
             </label>
             <label>Password: 
-                <input type="password" id="password" name="password" required>
-                <span class="error" id="passwordError"></span>
+                <input type="password" name="password" id="loginPassword" required>
+                <span class="error" id="loginPasswordError"></span>
             </label>
-            <label>Confirm Password: 
-                <input type="password" id="confirmPassword" required>
-                <span class="error" id="confirmError"></span>
-            </label>
-            <button type="submit">Register</button>
+            <button type="submit">Login</button>
         </form>
         <p class="form-footer">
-            Already have an account? <a href="clogin.html">Login</a>
+            Don't have an account? <a href="signup.html">Sign up</a> | <a href="#">Forgot Password?</a>
         </p>
     </div>
   </main>
-  
+
   <footer>
     <p>&copy; 2025 JobConnect. All rights reserved.</p>
   </footer>

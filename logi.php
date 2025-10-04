@@ -10,15 +10,15 @@
   <nav class="navbar">
     <div class="nav-container">
       <div class="nav-logo">
-        <a href="index.html">JobConnect</a>
+        <a href="index.php">JobConnect</a>
       </div>
       <div class="nav-menu">
-        <ul>
+      <ul>
           <li><a href="index.php">Home</a></li>
           <li><a href="jobs.php">Jobs</a></li>
           <li><a href="admin.php">Admin</a></li>
-          <li><a href="login.html">Login</a></li>
-          <li><a href="signup.html">Signup</a></li>
+          <li><a href="signu.php">Signup</a></li>
+          <li><a href="logout.php">Logout</a></li>
         </ul>
       </div>
     </div>
@@ -41,7 +41,7 @@
             <button type="submit">Login</button>
         </form>
         <p class="form-footer">
-            Don't have an account? <a href="signup.html">Sign up</a> | <a href="#">Forgot Password?</a>
+            Don't have an account? <a href="signu.php">Sign up</a>
         </p>
     </div>
   </main>
