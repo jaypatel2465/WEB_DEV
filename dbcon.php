@@ -10,4 +10,6 @@
     if($conn -> connect_error){
         die("Connection failed: " . $conn -> connect_error);
     }
+
+    echo "<link rel='icon' href='icon.ico' type='image/x-icon'>";
 ?>

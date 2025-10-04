@@ -1,3 +1,6 @@
+<?php
+  require_once "dbcon.php";
+  ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -41,7 +44,7 @@
             <button type="submit">Login</button>
         </form>
         <p class="form-footer">
-            Don't have an account? <a href="signup.html">Sign up</a> | <a href="#">Forgot Password?</a>
+            Don't have an account? <a href="signup.html">Sign up</a>
         </p>
     </div>
   </main>
