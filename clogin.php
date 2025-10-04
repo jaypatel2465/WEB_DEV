@@ -20,6 +20,12 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
     if($stmt->fetch()){
         if(password_verify($password, $hash)){
 
+            $_SESSION = array();
+
+            session_destroy();
+    
+            session_start();
+
             session_regenerate_id(true);
             $_SESSION['company_id'] = $company_id;
             $_SESSION['company_name'] = $company_name;

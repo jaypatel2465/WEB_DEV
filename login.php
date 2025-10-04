@@ -20,6 +20,11 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
                 $upd->execute();
                 $upd->close();
             }
+            $_SESSION = array();
+
+            session_destroy();
+    
+            session_start();
 
             session_regenerate_id(true);
             $_SESSION['user_id'] = $user_id;

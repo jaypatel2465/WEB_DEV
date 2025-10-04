@@ -74,12 +74,12 @@
         flex-grow: 1;
     }
     
-    /* Shared Card Style */
     .job-card {
         background: #ffffff;
         padding: 2rem;
         border-radius: 8px;
         box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        margin: 1rem 3rem;
         border: 1px solid #e9ecef;
     }
 
@@ -108,15 +108,12 @@
         padding: 1.5rem;
         margin-top: auto;
     }
-  </style>
 
-  <!-- Styles SPECIFICALLY for this page to ensure correct layout -->
-  <style>
     .content-container {
       width: 100%;
       max-width: 1200px;
       margin: 0 auto;
-      padding: 3rem 1rem;
+      padding: 1rem 1rem;
       box-sizing: border-box;
     }
     
@@ -191,12 +188,12 @@
                 <p><?php echo $job['role']; ?></p>
                 
                 <div class="details">
-                    <p><strong>Experience:</strong> <?php echo htmlspecialchars($job['experience_required']); ?> years</p>
-                    <p><strong>Skills:</strong> <?php echo htmlspecialchars($job['skills']); ?></p>
-                    <p><strong>Salary:</strong> <?php echo htmlspecialchars($job['salary_range']); ?></p>
+                    <p><strong>Experience:</strong> <?php echo ($job['experience_required']); ?> years</p>
+                    <p><strong>Skills:</strong> <?php echo ($job['skills']); ?></p>
+                    <p><strong>Salary:</strong> <?php echo ($job['salary_range']); ?></p>
                 </div>
 
-                <a href="apply.php?job_id=<?php echo $job['job_id']; ?>"><button>Apply Now</button></a>
+                <a href="apply.php?job_id=<?=$job['job_id'] ?>&role=<?=$job['job_title'] ?>"><button>Apply Now</button></a>
             </div>
             <?php
         }

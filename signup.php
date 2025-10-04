@@ -17,6 +17,12 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
     $stmt->bind_param("ssss", $full_name, $email, $hash,$phone);
 
     if($stmt->execute()){
+
+        $_SESSION = array();
+
+        session_destroy();
+
+        session_start();
         $_SESSION['user_id'] = $stmt->insert_id;
         $_SESSION['full_name'] = $full_name;
         $_SESSION['user'] = 'user';

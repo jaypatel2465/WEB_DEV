@@ -5,6 +5,6 @@ $_SESSION = array();
 
 session_destroy();
 
-header("Location: login.html");
+header("Location: logi.php");
 exit();
 ?>

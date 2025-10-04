@@ -17,6 +17,11 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 
     if($stmt->execute()){
         // Store session info
+        $_SESSION = array();
+
+        session_destroy();
+
+        session_start();
         $_SESSION['company_id'] = $stmt->insert_id;
         $_SESSION['company_name'] = $company_name;
         $_SESSION['company'] = 'company';
