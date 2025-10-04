@@ -1,4 +1,5 @@
 <?php
+  require_once "dbcon.php";
   session_start();
 
   if(!isset($_SESSION['company'])){
@@ -14,9 +15,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Admin Dashboard - JobConnect</title>
   
-  <!-- All necessary styles are embedded here to prevent conflicts -->
   <style>
-    /* General Base Styles */
     body {
         font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
         margin: 0;
@@ -37,7 +36,6 @@
         border: 1px solid #e9ecef;
     }
 
-    /* Navigation Bar */
     .navbar {
         width: 100%;
         background-color: #fff;
@@ -73,7 +71,6 @@
     }
     .nav-menu a:hover { color: #007bff; }
 
-    /* Footer */
     footer {
         background: #343a40;
         color: #fff;
@@ -82,7 +79,6 @@
         margin-top: auto;
     }
 
-    /* Admin Page Specific Styles */
     .content-container {
       width: 100%;
       max-width: 960px;
@@ -185,6 +181,10 @@
     .btn-reject { background-color: #dc3545; }
     .btn-reject:hover { background-color: #c82333; }
 
+    .a:visited{
+      color: blue;
+    }
+
     
 .suc{
     color: green;
@@ -255,41 +255,70 @@
       </div>
     </section>
 
-    <!-- Manage Jobs Section -->
     <section id="manage-job-content" class="tab-content">
       <div class="card">
         <h2>Manage Posted Jobs</h2>
-        <div class="posted-job">
-          <h3>Senior Software Engineer</h3>
-          <div class="applicant-list">
-            <div class="applicant">
-              <span>John Doe</span>
-              <div class="applicant-actions">
-                <button class="btn-accept">Accept</button>
-                <button class="btn-reject">Reject</button>
-              </div>
-            </div>
-            <div class="applicant">
-              <span>Jane Smith</span>
-              <div class="applicant-actions">
-                <button class="btn-accept">Accept</button>
-                <button class="btn-reject">Reject</button>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="posted-job">
-            <h3>UX/UI Designer</h3>
-            <div class="applicant-list">
-              <div class="applicant">
-                <span>Peter Jones</span>
-                <div class="applicant-actions">
-                  <button class="btn-accept">Accept</button>
-                  <button class="btn-reject">Reject</button>
+        <?php
+          $sql = "SELECT
+          j.job_id,
+          j.job_title,
+          a.application_id,
+          a.name AS applicant_name,
+          a.resume AS resume_path,
+          a.cover_letter
+      FROM
+          jobs AS j
+      JOIN
+          applications AS a ON j.job_id = a.job_id
+      WHERE
+          j.company_id = ? and a.status = 'Applied'
+      ORDER BY
+          j.job_title, a.applied_at DESC";
+
+          $stmt = $conn->prepare($sql);
+          $stmt->bind_param("i", $_SESSION['company_id']);
+          $stmt->execute();
+          $result = $stmt->get_result();
+
+          while ($row = $result->fetch_assoc()) {
+            $jobs_with_applicants[$row['job_id']]['job_title'] = $row['job_title'];
+            $jobs_with_applicants[$row['job_id']]['applicants'][] = $row;
+        }
+    
+        // 4. DYNAMIC HTML GENERATION
+        if (empty($jobs_with_applicants)) {
+            echo "<p>No applications received yet.</p>";
+        } else {
+            foreach ($jobs_with_applicants as $job) {
+                ?>
+                <div class="posted-job">
+                    <h3><?php echo htmlspecialchars($job['job_title']); ?></h3>
+                    <div class="applicant-list">
+                        <?php foreach ($job['applicants'] as $applicant) { ?>
+                            <div class="applicant">
+                                <div class="applicant-info">
+                                    <span><?= $applicant['applicant_name'] ?></span>
+                                    <div>
+                                        <a href="<?= $applicant['resume_path'] ?>" target="_blank">View Resume</a>
+                                    </div>
+                                    <?php if (!empty($applicant['cover_letter'])) { ?>
+                                        <p>"<?= $applicant['cover_letter'] ?>"</p>
+                                    <?php } ?>
+                                </div>
+                                <div class="applicant-actions">
+                                    <button class="btn-accept" type="submit">Accept</button>
+                                    <button class="btn-reject" type="submit">Reject</button>
+                                </div>
+                            </div>
+                        <?php } ?>
+                    </div>
                 </div>
-              </div>
-            </div>
-          </div>
+                <?php
+            }
+        }
+        $stmt->close();
+        $conn->close();
+        ?>
       </div>
     </section>
   </main>
