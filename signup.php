@@ -19,7 +19,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
     if($stmt->execute()){
         $_SESSION['user_id'] = $stmt->insert_id;
         $_SESSION['full_name'] = $full_name;
-        $_SESSION['type'] = 'user';
+        $_SESSION['user'] = 'user';
         header('Location: index.php');
         // echo "Signup successful. Welcome, " . htmlspecialchars($full_name) . "!";
     } else {

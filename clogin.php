@@ -23,7 +23,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
             session_regenerate_id(true);
             $_SESSION['company_id'] = $company_id;
             $_SESSION['company_name'] = $company_name;
-            $_SESSION['type'] = 'company';
+            $_SESSION['company'] = 'company';
 
             header("Location: admin.php");
             exit();

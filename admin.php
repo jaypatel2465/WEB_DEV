@@ -1,10 +1,10 @@
 <?php
   session_start();
 
-  if(isset($_SESSION['type'])){
-    if($_SESSION['type'] == "user")
-    header('Location: csignup.html');
+  if(!isset($_SESSION['company'])){
+      header('Location: csignup.html');
   }
+
 ?>
 
 <!DOCTYPE html>
@@ -184,6 +184,11 @@
     .btn-accept:hover { background-color: #218838; }
     .btn-reject { background-color: #dc3545; }
     .btn-reject:hover { background-color: #c82333; }
+
+    
+.suc{
+    color: green;
+}
   </style>
 </head>
 <body>
@@ -206,7 +211,7 @@
 
   <main class="content-container">
     <div class="dashboard-header">
-      <h1><?= isset($_SESSION['company_name']) ? $_SESSION['company_name'] : 'Employer' ?> Dashboard</h1>
+      <h1><?= $_SESSION['company_name'] ?> Dashboard</h1>
       <p>Post new jobs and manage applications from candidates.</p>
     </div>
 
@@ -218,27 +223,32 @@
     <!-- Post a Job Section -->
     <section id="post-job-content" class="tab-content active">
       <div class="card">
+      <?php
+    if (isset($_GET['status']) && $_GET['status'] === 'success') {
+        echo '<div class="suc">Job Posted succesfully</div>';
+    }
+    ?>
         <h2>Post a New Vacancy</h2>
-        <form id="postJobForm">
+        <form id="postJobForm" method="post" action="postjob.php">
           <div class="form-group">
             <label for="jobTitle">Job Title</label>
-            <input type="text" id="jobTitle" required>
+            <input type="text" id="jobTitle" name="jobTitle" required>
           </div>
           <div class="form-group">
             <label for="jobDesc">Role Description</label>
-            <textarea id="jobDesc" rows="5" required></textarea>
+            <textarea id="jobDesc" rows="5" name="jobDesc" required></textarea>
           </div>
           <div class="form-group">
             <label for="jobExp">Required Experience (in years)</label>
-            <input type="number" id="jobExp" required>
+            <input type="number" id="jobExp" name="jobExp" required>
           </div>
           <div class="form-group">
             <label for="jobSkills">Required Skills (comma-separated)</label>
-            <input type="text" id="jobSkills" required>
+            <input type="text" id="jobSkills" name="skills" required>
           </div>
           <div class="form-group">
             <label for="jobSalary">Salary Range</label>
-            <input type="text" id="jobSalary" required>
+            <input type="text" id="jobSalary" name="salary" required>
           </div>
           <button type="submit">Post Job</button>
         </form>
