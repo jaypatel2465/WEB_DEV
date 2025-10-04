@@ -1,0 +1,85 @@
+CREATE DATABASE jobportal;
+USE jobportal;
+
+CREATE TABLE `users` (
+  `user_id` INT(11) NOT NULL AUTO_INCREMENT,
+  `full_name` VARCHAR(100) NOT NULL,
+  `email` VARCHAR(100) NOT NULL UNIQUE,
+  `password` VARCHAR(255) NOT NULL,
+  `phone` VARCHAR(15) DEFAULT NULL,
+  `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`user_id`)
+);
+
+CREATE TABLE `companies` (
+  `company_id` INT(11) NOT NULL AUTO_INCREMENT,
+  `company_name` VARCHAR(100) NOT NULL UNIQUE,
+  `email` VARCHAR(100) NOT NULL UNIQUE,
+  `password` VARCHAR(255) NOT NULL,
+  `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`company_id`)
+);
+
+CREATE TABLE `jobs` (
+  `job_id` INT(11) NOT NULL AUTO_INCREMENT,
+  `company_id` INT(11) NOT NULL,
+  `job_title` VARCHAR(100) NOT NULL,
+  `role` VARCHAR(400) DEFAULT NULL,
+  `experience_required` VARCHAR(50) DEFAULT NULL,
+  `skills` VARCHAR(255) DEFAULT NULL,
+  `salary_range` VARCHAR(50) DEFAULT NULL,
+  `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`job_id`),
+  FOREIGN KEY (`company_id`) REFERENCES `companies`(`company_id`) ON DELETE CASCADE
+);
+
+CREATE TABLE `applications` (
+  `application_id` INT(11) NOT NULL AUTO_INCREMENT,
+  `job_id` INT(11) NOT NULL,
+  `user_id` INT(11) NOT NULL,
+  `phone` VARCHAR(15) DEFAULT NULL,
+  `resume` VARCHAR(255) DEFAULT NULL,
+  `cover_letter` TEXT DEFAULT NULL,
+  `status` ENUM('Applied','Shortlisted','Rejected') DEFAULT 'Applied',
+  `applied_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `name` TEXT DEFAULT NULL,
+  PRIMARY KEY (`application_id`),
+  FOREIGN KEY (`job_id`) REFERENCES `jobs`(`job_id`) ON DELETE CASCADE,
+  FOREIGN KEY (`user_id`) REFERENCES `users`(`user_id`) ON DELETE CASCADE
+);
+
+INSERT INTO `users` (`user_id`, `full_name`, `email`, `password`, `phone`, `created_at`) VALUES
+(1, 'Kathan Kamleshkumar Majithia', 'kathanmajithia@gmail.com', '$2y$10$0NE/N5PTMqScoXFy3xUtiO9/6CFjnuZ99WbOPaJF.HehgQLI7R7kW', '9879615225', '2025-10-02 17:00:39'),
+(3, 'Archi Lad', 'ar@gmail.com', '$2y$10$EpW4k3dlKRn0/oXp40C6ceWx7OCI8IXS4Q5thgeQBNE7UareTnPQu', '6767676767', '2025-10-04 11:08:35'),
+(4, 'Dhruv Shah', 'dh@gmail.com', '$2y$10$yVGxTZJvfSvjO62UfveIWux.DrWGjzi3F7hHs87viaV9FvNL7LraK', '6464646464', '2025-10-04 11:17:01'),
+(5, 'Jay Machhi', 'jay@gmail.com', '$2y$10$nUhxXUBlmvj.L1.d9/YjQeWzvFFstpUce4Ds/rl0Ktlww5JLX6IQe', '9292929292', '2025-10-04 11:17:38'),
+(6, 'Pushparaj Chavda', 'raj@gmail.com', '$2y$10$P5HP.5el8ex0XKEYjIkifuoqcp9q4HoiZqTgvGWtIgSQNqNeM8L/C', '8282828282', '2025-10-04 11:18:24'),
+(7, 'Vatsal Savani', 'vats@gmail.com', '$2y$10$cRBGQhVPWxOlBasL51.zrecRSaeTj57sMSfpGTMbFjoyVJcZDmcBy', '6060606060', '2025-10-04 11:18:48'),
+(8, 'Vishwa Patel', 'vish@gmail.com', '$2y$10$vBja4c1ppTIawJs4y9xPfePDFCHThUSYNMxl2HVuzSzXGAoT0UGV.', '8080808080', '2025-10-04 11:19:07'),
+(9, 'Tirth Goyani', 'tir@gmail.com', '$2y$10$FslD8bktvtPEobBrHhUtsuH8WPSwZXhkcOfmckvOlziVK8YmdrhcO', '6060606060', '2025-10-04 11:19:26'),
+(10, 'Shruti Patel', 'shruti@gmail.com', '$2y$10$fwPX8ctaDdMOe5QpEi33yus30gCqFPCKJhcw3wiCkbsvfRmnLFyjq', '6565656565', '2025-10-04 11:19:46'),
+(11, 'Meera Sharma', 'meera@gmail.com', '$2y$10$Q4prfyyCjuMJT81t4zG8l.KFB1PV7nf8AT.P1UN.Y5F7JZtkBIqVS', '8787878787', '2025-10-04 11:20:06');
+
+INSERT INTO `companies` (`company_id`, `company_name`, `email`, `password`, `created_at`) VALUES
+(1, 'Synoverge', 'synoverge@gmail.com', '$2y$10$42SLTghszYO1Rtkl2cqJ/.7/tegYAaojTuTkI9Dm/XTMwGWmJzhrO', '2025-10-02 17:16:32'),
+(2, 'Royale Cheese', 'rc@gmail.com', '$2y$10$TZUaaZDZw9FcWrGbxwVvP.ooPlFcakPXnMkFjONkutDvdtL6i1fUC', '2025-10-02 17:21:57'),
+(3, 'TCS', 'tcs@gmail.com', '$2y$10$c7aN1xDoHWxZQVRo2LzsDe8i6MMqS6k54jhkDgmLjxxEoGJdZEmoC', '2025-10-04 11:24:46'),
+(4, 'Cloudmate Technologies', 'cloud@gmail.com', '$2y$10$DysNSeTEcrHafulqiMokje4Z.jturjiboe3w8HRGn8s2hBnwFvSze', '2025-10-04 11:25:46'),
+(5, 'DynaTech Systems', 'dyna@gmail.com', '$2y$10$47yeur0wNLYBW47Cmwpx0ugSmpecUI5ZiVtijJbIYc5zX8ieauSWC', '2025-10-04 11:27:01'),
+(6, 'Square Infosoft', 'square@gmail.com', '$2y$10$BTm2po9XFicveQ432HQvPeIK0KKgWRqF8l.tG2ZUa0VZwnDk5jan6', '2025-10-04 11:27:56');
+
+INSERT INTO `jobs` (`job_id`, `company_id`, `job_title`, `role`, `experience_required`, `skills`, `salary_range`, `created_at`) VALUES
+(1, 2, 'Associate Software Developer', 'Junior Software Developer, along with working with teams.', '0', 'Java,.Net', '4 LPA - 8 LPA', '2025-10-04 12:03:22'),
+(2, 2, 'React Developer', 'Has to make responsive websites using React framework along with Express.', '1', 'React, Node, Javascript, Express', '3 LPA - 5 LPA', '2025-10-04 12:04:51'),
+(3, 1, 'Software Engineering Intern', 'Basic work of Software Development', '-2', 'Java,DBMS, OOP', 'Unpaid', '2025-10-04 12:20:07'),
+(4, 1, '.Net Developer', 'Experience in building apps using ASP.NET and knowing SQL and MVC concepts.', '2', '.NET, MV, C#, SQL', '5 LPA - 7 LPA', '2025-10-04 12:22:02'),
+(5, 1, 'Senior Software Tester', 'Manual Software Testing', '7', 'Software Engineering, Testing', '7 LPA - 10 LPA', '2025-10-04 12:23:05'),
+(6, 3, 'System Engineering', 'Working in field related to system designing and hardware.', '4', 'System Engineering, Computer Network, Cyber Security', '9 LPA - 12 LPA', '2025-10-04 12:25:04'),
+(7, 3, 'VLSI Head', 'Making VLSI microchips', '6', 'VLSI, Python, Matlab, Arduino', '12 LPA - 15 LPA', '2025-10-04 12:26:16'),
+(8, 4, 'Cloud Engineering', 'Leading operations on cloud for latest LLP, AI and voice agents.', '0', 'Cloud Computing', '5 LPA - 8 LPA', '2025-10-04 12:28:32');
+
+INSERT INTO `applications` (`application_id`, `job_id`, `user_id`, `phone`, `resume`, `cover_letter`, `status`, `applied_at`, `name`) VALUES
+(1, 8, 1, '9879615225', 'resumes/kathanmajithia@gmail.com8.pdf', 'I am a certified Cloud engineer from AWS.', 'Applied', '2025-10-04 13:42:23', 'Kathan Kamleshkumar Majithia'),
+(2, 4, 1, '9879615225', 'resumes/kathanmajithia@gmail.com4.pdf', 'I have 3 years of experience in working with .NET.', 'Applied', '2025-10-04 13:44:33', 'Kathan Kamleshkumar Majithia'),
+(3, 8, 7, '6706706700', 'resumes/vats@gmail.com8.pdf', 'I am a certified cloud engineer with certification in NPTEL and AWS.', 'Shortlisted', '2025-10-04 13:50:56', 'Vatsal Savani'),
+(4, 3, 7, '6706706700', 'resumes/vats@gmail.com3.pdf', 'I have experience in developing Software applications.', 'Rejected', '2025-10-04 13:53:05', 'Vatsal Savani');
