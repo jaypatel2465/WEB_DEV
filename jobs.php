@@ -96,10 +96,6 @@
         transition: background-color 0.3s ease;
     }
 
-    button:hover {
-        background-color: #0056b3;
-    }
-
     /* Footer */
     footer {
         background: #343a40;
@@ -136,6 +132,18 @@
     .job-card:hover {
         transform: translateY(-5px);
         box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+    }
+
+    .ap{
+      background-color: #f39c12;
+    }
+
+    .sh{
+      background-color: #2ecc71;
+    }
+
+    .re{
+      background-color: #e74c3c;
     }
 
     
@@ -192,8 +200,27 @@
                     <p><strong>Skills:</strong> <?php echo ($job['skills']); ?></p>
                     <p><strong>Salary:</strong> <?php echo ($job['salary_range']); ?></p>
                 </div>
+                <?php 
+                  $sql = "select * from applications where job_id=".$job['job_id']." and user_id=".$_SESSION['user_id'];
+                  $res = $conn->query($sql);
 
-                <a href="apply.php?job_id=<?=$job['job_id'] ?>&role=<?=$job['job_title'] ?>"><button>Apply Now</button></a>
+                  if($res && $res->num_rows > 0){
+                    $row = $res->fetch_assoc();
+
+                    $status = $row['status'];
+                    if($status == "Applied")
+                      echo "<button class='ap'>".$status."</button>";
+                    else if($status == "Shortlisted")
+                      echo "<button class='sh'>".$status."</button>";
+                    else if($status == "Rejected")
+                      echo "<button class='re'>".$status."</button>";
+                  }else{
+                    ?>
+                  <a href="apply.php?job_id=<?=$job['job_id'] ?>&role=<?=$job['job_title'] ?>"><button>Apply Now</button></a>
+                <?php  
+                }
+                
+                ?>
             </div>
             <?php
         }
