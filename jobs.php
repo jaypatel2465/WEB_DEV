@@ -1,3 +1,9 @@
+<?php
+  require_once 'dbcon.php';
+
+  session_start();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,9 +11,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Jobs - JobConnect</title>
   
-  <!-- General Styles (from style.css) are placed here first -->
+
   <style>
-    /* General body and typography */
+
     body {
         font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
         margin: 0;
@@ -19,7 +25,7 @@
         min-height: 100vh;
     }
 
-    /* Header and Navigation */
+
     .navbar {
         width: 100%;
         background-color: #fff;
@@ -134,6 +140,8 @@
         transform: translateY(-5px);
         box-shadow: 0 8px 15px rgba(0,0,0,0.1);
     }
+
+    
   </style>
 </head>
 <body>
@@ -156,32 +164,58 @@
 
   <main class="content-container">
     <h1 class="page-title">Available Jobs</h1>
-    <div class="jobs-list">
+    <?php
+    $sql = "SELECT 
+                j.job_id,
+                j.job_title,
+                j.role,
+                j.experience_required,
+                j.skills,
+                j.salary_range,
+                u.company_name
+            FROM 
+                jobs AS j
+            JOIN 
+                companies AS u ON j.company_id = u.company_id
+            ORDER BY 
+                j.created_at DESC";
+
+    $result = $conn->query($sql);
+
+    if ($result && $result->num_rows > 0) {
+
+        while ($job = $result->fetch_assoc()) {
+            ?>
+            <div class="job-card">
+                <h3><?php echo $job['job_title'] ." - ".$job['company_name']; ?></h3>
+                <p><?php echo $job['role']; ?></p>
+                
+                <div class="details">
+                    <p><strong>Experience:</strong> <?php echo htmlspecialchars($job['experience_required']); ?> years</p>
+                    <p><strong>Skills:</strong> <?php echo htmlspecialchars($job['skills']); ?></p>
+                    <p><strong>Salary:</strong> <?php echo htmlspecialchars($job['salary_range']); ?></p>
+                </div>
+
+                <a href="apply.php?job_id=<?php echo $job['job_id']; ?>"><button>Apply Now</button></a>
+            </div>
+            <?php
+        }
+    } else {
+        // 4. Display a message if no jobs are found
+        echo '<p class="no-jobs">No job vacancies found at the moment.</p>';
+    }
+
+    // Close the database connection
+    $conn->close();
+    ?>
+    <!-- <div class="jobs-list">
       <div class="job-card">
         <h3>Senior Software Engineer</h3>
         <p>TechCorp Inc. - San Francisco, CA</p>
         <p>Develop and maintain our cutting-edge web applications using modern technologies.</p>
         <a href="apply.html"><button>Apply Now</button></a>
       </div>
-      <div class="job-card">
-        <h3>Product Manager</h3>
-        <p>Innovate Solutions - New York, NY</p>
-        <p>Lead the product vision and roadmap for our flagship SaaS product.</p>
-        <a href="apply.html"><button>Apply Now</button></a>
-      </div>
-      <div class="job-card">
-        <h3>UX/UI Designer</h3>
-        <p>Creative Minds - Remote</p>
-        <p>Design intuitive and beautiful user interfaces for our mobile and web platforms.</p>
-        <a href="apply.html"><button>Apply Now</button></a>
-      </div>
-      <div class="job-card">
-        <h3>Data Analyst</h3>
-        <p>Numbers Co. - London, UK</p>
-        <p>Analyze large datasets to identify trends and provide actionable insights.</p>
-        <a href="apply.html"><button>Apply Now</button></a>
-      </div>
-    </div>
+    </div> -->
   </main>
 
   <footer>
