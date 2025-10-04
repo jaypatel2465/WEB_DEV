@@ -19,6 +19,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
         // Store session info
         $_SESSION['company_id'] = $stmt->insert_id;
         $_SESSION['company_name'] = $company_name;
+        $_SESSION['type'] = 'company';
 
         // Redirect to company dashboard/home page
         header("Location: admin.php");

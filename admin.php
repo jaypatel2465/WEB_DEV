@@ -1,3 +1,7 @@
+<?php
+  session_start();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -185,9 +189,9 @@
       </div>
       <div class="nav-menu">
         <ul>
-          <li><a href="index.html">Home</a></li>
-          <li><a href="jobs.html">Jobs</a></li>
-          <li><a href="admin.html">Admin</a></li>
+          <li><a href="index.php">Home</a></li>
+          <li><a href="jobs.php">Jobs</a></li>
+          <li><a href="admin.php">Admin</a></li>
           <li><a href="login.html">Login</a></li>
           <li><a href="signup.html">Signup</a></li>
         </ul>
@@ -197,7 +201,7 @@
 
   <main class="content-container">
     <div class="dashboard-header">
-      <h1>Employer Dashboard</h1>
+      <h1><?= isset($_SESSION['company_name']) ? $_SESSION['company_name'] : 'Employer' ?> Dashboard</h1>
       <p>Post new jobs and manage applications from candidates.</p>
     </div>
 

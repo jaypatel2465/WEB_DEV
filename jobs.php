@@ -144,9 +144,9 @@
       </div>
       <div class="nav-menu">
         <ul>
-          <li><a href="index.html">Home</a></li>
-          <li><a href="jobs.html">Jobs</a></li>
-          <li><a href="admin.html">Admin</a></li>
+          <li><a href="index.php">Home</a></li>
+          <li><a href="jobs.php">Jobs</a></li>
+          <li><a href="admin.php">Admin</a></li>
           <li><a href="login.html">Login</a></li>
           <li><a href="signup.html">Signup</a></li>
         </ul>

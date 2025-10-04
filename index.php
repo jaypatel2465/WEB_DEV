@@ -1,5 +1,6 @@
 <?php
   require_once 'dbcon.php';
+  session_start();
 ?>
 
 <!DOCTYPE html>
@@ -18,9 +19,9 @@
       </div>
       <div class="nav-menu">
         <ul>
-          <li><a href="index.html">Home</a></li>
-          <li><a href="jobs.html">Jobs</a></li>
-          <li><a href="admin.html">Admin</a></li>
+          <li><a href="index.php">Home</a></li>
+          <li><a href="jobs.php">Jobs</a></li>
+          <li><a href="admin.php">Admin</a></li>
           <li><a href="login.html">Login</a></li>
           <li><a href="signup.html">Signup</a></li>
         </ul>
@@ -30,6 +31,7 @@
 
   <main>
     <section class="hero">
+      <h2>Welcome, <?= isset($_SESSION['full_name']) ? $_SESSION['full_name'] : 'User' ?></h2>
       <h2>Connecting Talent with Opportunity</h2>
       <div class="stats">
         <div><span id="jobsCount">

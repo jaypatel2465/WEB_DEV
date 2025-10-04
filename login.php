@@ -24,6 +24,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
             session_regenerate_id(true);
             $_SESSION['user_id'] = $user_id;
             $_SESSION['full_name'] = $full_name;
+            $_SESSION['type'] = 'user';
 
             // echo "Login successful. Welcome back, " . htmlspecialchars($full_name) . "!";
             header('Location: index.php');
