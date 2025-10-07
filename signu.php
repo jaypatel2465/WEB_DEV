@@ -54,6 +54,11 @@
                 <input type="password" id="confirmPassword" required>
                 <span class="error" id="confirmError"></span>
             </label>
+            <?php
+            if (isset($_GET['er']) && $_GET['er'] === 'er') {
+              echo "<div style=color:red;>Email already registered</div>";
+            }
+              ?>
             <button type="submit">Register</button>
         </form>
         <p class="form-footer">

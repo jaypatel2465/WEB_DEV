@@ -34,10 +34,10 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
             header("Location: admin.php");
             exit();
         } else {
-            echo "Password incorrect.";
+            header('Location: logi.php?er=er');
         }
     } else {
-        echo "Email is not registered.";
+        header('Location: logi.php?er=er');
     }
 
     $stmt->close();

@@ -30,9 +30,9 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
         // echo "Signup successful. Welcome, " . htmlspecialchars($full_name) . "!";
     } else {
         if(strpos($stmt->error, "Duplicate") !== false){
-            echo "Email already registered.";
+            header('Location: signu.php?er=er');
         } else {
-            echo "Error: " . $stmt->error;
+            header('Location: signu.php?er=er');
         }
     }
     $stmt->close();

@@ -41,6 +41,11 @@
                 <input type="password" name="password" id="loginPassword" required>
                 <span class="error" id="loginPasswordError"></span>
             </label>
+            <?php
+            if (isset($_GET['er']) && $_GET['er'] === 'er') {
+              echo "<div style=color:red;>Incorrect email or password</div>";
+            }
+              ?>
             <button type="submit">Login</button>
         </form>
         <p class="form-footer">

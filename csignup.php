@@ -31,9 +31,9 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
         exit();
     } else {
         if(strpos($stmt->error, "Duplicate") !== false){
-            echo "Email or company name already registered.";
+            header('Location: logi.php?er=er');
         } else {
-            echo "Error: " . $stmt->error;
+            header('Location: logi.php?er=er');
         }
     }
 
