@@ -176,9 +176,9 @@
         border-radius: 4px;
         color: white;
     }
-    .btn-accept { background-color: #28a745; }
+    .btn-accept, .ba { background-color: #28a745; }
     .btn-accept:hover { background-color: #218838; }
-    .btn-reject { background-color: #dc3545; }
+    .btn-reject, .br { background-color: #dc3545; }
     .btn-reject:hover { background-color: #c82333; }
 
     .a:visited{
@@ -263,6 +263,7 @@
           j.job_id,
           j.job_title,
           a.application_id,
+          a.status,
           a.name AS applicant_name,
           a.resume AS resume_path,
           a.cover_letter
@@ -271,7 +272,7 @@
       JOIN
           applications AS a ON j.job_id = a.job_id
       WHERE
-          j.company_id = ? and a.status = 'Applied'
+          j.company_id = ?
       ORDER BY
           j.job_title, a.applied_at DESC";
 
@@ -301,14 +302,21 @@
                                     <div>
                                         <a href="<?= $applicant['resume_path'] ?>" target="_blank">View Resume</a>
                                     </div>
-                                    <?php if (!empty($applicant['cover_letter'])) { ?>
                                         <p>"<?= $applicant['cover_letter'] ?>"</p>
-                                    <?php } ?>
                                 </div>
                                 <div class="applicant-actions">
+                                  <?php if($applicant['status'] == 'Applied'){
+                                    ?>
                                     <a href="status.php?app=<?= $applicant['application_id'] ?>&sta=a" ><button class="btn-accept">Accept</button></a>
                                     <a href="status.php?app=<?= $applicant['application_id'] ?>&sta=r" ><button class="btn-reject">Reject</button></a>
-                                </div>
+                                    <?php
+                                  }else if($applicant['status'] == 'Rejected'){
+                                    echo "<button class='br'>".$applicant['status']."</button>";
+                                  }else{
+                                    echo "<button class='ba'>".$applicant['status']."</button>";
+                                  }
+                                    ?>
+                                  </div>
                             </div>
                         <?php } ?>
                     </div>
